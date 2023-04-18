@@ -1,4 +1,5 @@
 import os
+#printing file data onto the terminal
 def printfile():
     with open('sales.csv') as file:
         print(file.read())
@@ -11,6 +12,9 @@ while salesData != correctFile:
     salesData = input("type in the file to open")
 
 printfile()
+
+def benfordslaw():
+    pass
 
     
 
