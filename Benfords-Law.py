@@ -1,0 +1,1 @@
+salesData = input("type in the sales file")
