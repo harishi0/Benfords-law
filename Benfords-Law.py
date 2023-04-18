@@ -1,1 +1,3 @@
-salesData = input("type in the sales file")
+salesData = input("press 1 to open the data file")
+
+
