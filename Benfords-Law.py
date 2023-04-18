@@ -1,10 +1,13 @@
 import os
 salesData = input("type in the file to open")
 correctFile = "sales.csv"
-
-if salesData == correctFile:
+def printfile():
     with open('sales.csv') as file:
         print(file.read())
+if salesData == correctFile:
+     printfile()
+else:
+    print("invalid file")
 
     
 
