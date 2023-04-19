@@ -1,85 +1,59 @@
 import os
-import math
-# Check if the input file name matches the expected file name
-correct_file = "sales.csv"
-sales_data = input("Type in the file to open: ")
-while sales_data != correct_file:
-    print("Invalid file name. Please try again.")
-    sales_data = input("Type in the file to open: ")
+import csv
+import matplotlib.pyplot as plt
+
+# Define a function to calculate the frequency of first digits
+def first_digit_freq(data):
+    freq = [0] * 9
+    for num in data:
+        first_digit = int(str(num)[0])
+        freq[first_digit-1] += 1
+    return freq
+
+# Define a function to plot the frequency of first digits
+def plot_freq(freq):
+    digits = list(range(1, 10))
+    plt.bar(digits, freq)
+    plt.title("Distribution of First Digits")
+    plt.xlabel("Digit")
+    plt.ylabel("Frequency")
+    plt.show()
+
+# Define the filename to read from
+sales_file = "sales.csv"
 
 # Check if the file exists
-if not os.path.isfile(sales_data):
-    print
-    
-def load_sales_data(file_path):
-    """
-    This function loads the sales data from the input file and returns a list of dictionaries.
-    Each dictionary represents a row in the input file, with keys based on the header.
-    """
-    with open(file_path, "r") as f:
-        lines = f.readlines()
-        header = lines[0].strip().split(",")
-        expected_columns = ['date', 'customer_name', 'product_name', 'sales_amount']
-        if header != expected_columns:
-            print("Error: invalid format - missing or incorrect columns")
-            exit()
-        data = []
-        for line in lines[1:]:
-            values = line.strip().split(",")
-            row = {header[i]: values[i] for i in range(len(header))}
-            data.append(row)
-    return data
+while not os.path.isfile(sales_file):
+    print("The file does not exist.")
+    sales_file = input("Please enter a valid filename: ")
 
-def extract_first_digit(value):
-    """
-    This function extracts the first digit of a given value and returns it as an integer.
-    If the value is not a number, returns None.
-    """
-    try:
-        first_digit = int(str(value)[0])
-        return first_digit
-    except ValueError:
-        return None
+# Read the data from the file
+with open(sales_file, "r") as file:
+    reader = csv.reader(file, delimiter=",")
+    next(reader)  # skip header
+    data = [float(row[1]) for row in reader]
 
-def calculate_frequency(data):
-    """
-    This function calculates the frequency of occurrence of the first digit of the sales_amount column.
-    Returns a dictionary with keys from 1 to 9 and values representing the frequency.
-    """
-    freq = {d: 0 for d in range(1, 10)}
-    for row in data:
-        first_digit = extract_first_digit(row['sales_amount'])
-        if first_digit is not None:
-            freq[first_digit] += 1
-    total = sum(freq.values())
-    actual_freq = {k: v/total for k, v in freq.items()}
-    return actual_freq
+# Calculate the frequency of first digits
+freq = first_digit_freq(data)
 
-def calculate_expected_frequency():
-    """
-    This function calculates the expected frequency of occurrence of the first digit based on Benford's Law.
-    Returns a dictionary with keys from 1 to 9 and values representing the expected frequency.
-    """
-    expected_freq = {d: math.log10(1 + 1/d) for d in range(1, 10)}
-    return expected_freq
+# Plot the frequency of first digits
+plot_freq(freq)
 
-def detect_fraud(actual_freq, expected_freq, threshold=0.1):
-    """
-    This function compares the actual and expected frequencies and returns a list of indices
-    where the difference between actual and expected frequencies is greater than the threshold.
-    """
-    diff = {k: actual_freq[k] - expected_freq[k] for k in expected_freq.keys()}
-    fraud_indices = [k for k, v in diff.items() if abs(v) > threshold]
-    return fraud_indices
+# Calculate the expected frequency according to Benford's law
+benford_freq = [sum(freq) * (1 / (i * 1.0)) for i in range(1, 10)]
 
-def export_fraud_data(data, fraud_indices, file_name="fraud.csv"):
-    """
-    This function exports the rows in data with indices in fraud_indices to a file with the given name.
-    """
-    if len(fraud_indices) > 0:
-        fraud_data = [data[i] for i in fraud_indices]
-        with open(file_name, 'w') as f:
-            f.write(",".join(data[0].keys()) + "\n")
-            for row in fraud_data:
-                f.write(",".join(row.values()) + "\n")
+# Calculate the percentage difference between observed and expected frequencies
+perc_diff = [((freq[i] - benford_freq[i]) / benford_freq[i]) * 100 for i in range(9)]
 
+# Check if the data is likely to be fraudulent based on Benford's law
+if all(29 <= diff <= 32 for diff in perc_diff):
+    print("The data is likely to be valid.")
+else:
+    print("The data may be fraudulent.")
+
+# Write the frequency data to a CSV file
+with open("results.csv", "w") as file:
+    writer = csv.writer(file)
+    writer.writerow(["Digit", "Observed Frequency", "Expected Frequency", "% Difference"])
+    for i in range(9):
+        writer.writerow([i+1, freq[i], round(benford_freq[i], 2), round(perc_diff[i], 2)])
