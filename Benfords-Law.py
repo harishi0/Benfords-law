@@ -13,10 +13,7 @@ while salesData != correctFile:
 
 printfile()
 
-
-def benfordslaw():
-    pass
-
+input("press 2 to validate")
     
 
 
