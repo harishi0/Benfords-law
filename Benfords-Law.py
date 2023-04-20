@@ -18,6 +18,10 @@ def benfordslaw():
     pass
 
     
+plt.plot(x, y, linewidth=2.0)
+
+    
+
 
 
 
