@@ -21,8 +21,8 @@ correctInp = "2"
 def validateNumber():
     with open('sales.csv') as numbers:
         file = numbers.read()
-        split = file.split()
-    print(split)
+        file = file.split()
+    print(file)
 
 while validate != correctInp:
     validate = input("press 2 to validate")
