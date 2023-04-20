@@ -1,5 +1,5 @@
 import os
-import matplotlib.pyplot as plt
+
 #printing file data onto the terminal
 def printfile():
     with open('sales.csv') as file:
@@ -19,7 +19,7 @@ input("press 2 to validate")
 def validateNumber():
     pass
     
-
+    
 
 
 
