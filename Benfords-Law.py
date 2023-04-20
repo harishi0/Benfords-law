@@ -1,4 +1,5 @@
 import os
+import matplotlib.pyplot as plt
 #printing file data onto the terminal
 def printfile():
     with open('sales.csv') as file:
@@ -16,9 +17,6 @@ printfile()
 
 def benfordslaw():
     pass
-
-    
-plt.plot(x, y, linewidth=2.0)
 
     
 
