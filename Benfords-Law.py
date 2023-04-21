@@ -18,14 +18,17 @@ printfile()
 validate = input("press 2 to validate")
 correctInp = "2"
 
+def first_digit(n):
+    while n >= 10:
+        n //= 10
+    return n
+
 def validateNumber():
     with open('sales.csv') as numbers:
         file = numbers.read()
         file = file.split()
-    for i in file:
-        DigitOne = i[4]
-        print(DigitOne)
-
+    first_digits = [first_digit(int(line.split(",")[1])) for line in file[1:]]
+    print(first_digits)
 
 while validate != correctInp:
     validate = input("press 2 to validate")
