@@ -22,7 +22,10 @@ def validateNumber():
     with open('sales.csv') as numbers:
         file = numbers.read()
         file = file.split()
-    print(file)
+    for i in file:
+        DigitOne = i[4]
+        print(DigitOne)
+
 
 while validate != correctInp:
     validate = input("press 2 to validate")
