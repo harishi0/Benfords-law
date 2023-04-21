@@ -1,5 +1,5 @@
 import os
-
+import math
 #printing file data onto the terminal
 def printfile():
     with open('sales.csv') as file:
