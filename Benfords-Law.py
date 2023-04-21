@@ -32,6 +32,8 @@ while validate != correctInp:
     validate = input("press 2 to validate")
 
 validateNumber()
+
+
 '''
 # Extract the first digit of each sales value
 first_digits = [first_digit(int(line.split(",")[1])) for line in data[1:]]
@@ -55,6 +57,3 @@ while type != "y":
 
 filePercent()
 '''
-
-
-
