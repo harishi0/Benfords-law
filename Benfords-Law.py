@@ -14,14 +14,15 @@ def validateNumber():
     with open('sales.csv') as numbers:
         file = numbers.readlines()
     first_digits = [first_digit(int(line.split(",")[1])) for line in file[1:]]
-    print(first_digits)
+    Calc_freq = [round(first_digits.count(d) / len(first_digits)*100, 2) for d in range(1, 10)]
+    print(Calc_freq)
 
 salesData = input("type in the file to open:")
 correctFile = "sales.csv"
 
 while salesData != correctFile:
     print("invalid file, try again!")
-    salesData = input("type in the file to open:")
+    salesData = input("type in the file to open:") 
 
 printfile()
 
@@ -32,8 +33,6 @@ while validate != correctInp:
     validate = input("press 2 to validate")
 
 validateNumber()
-
-
 '''
 # Extract the first digit of each sales value
 first_digits = [first_digit(int(line.split(",")[1])) for line in data[1:]]
