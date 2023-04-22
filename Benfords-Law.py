@@ -37,7 +37,7 @@ def Print_csv(data, filename):
 
 salesData = input("type in the file to open:")
 correctFile = "sales.csv"
-
+ 
 while salesData != correctFile:
     print("invalid file, try again!")
     salesData = input("type in the file to open:") 
