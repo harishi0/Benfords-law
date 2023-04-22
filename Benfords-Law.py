@@ -4,20 +4,27 @@ import math
 def printfile():
     with open('sales.csv') as file:
         print(file.read())
-    
-def first_digit(n):
-    while n >= 10:
-        n //= 10
-    return n
+#firstdigit 
+def first_digit(num):
+    while num >= 10:
+        num //= 10
+    return num
 
 def validateNumber():
     with open('sales.csv') as numbers:
         file = numbers.readlines()
     first_digits = [first_digit(int(line.split(",")[1])) for line in file[1:]]
-    Calc_freq = [round(first_digits.count(d) / len(first_digits)*100, 2) for d in range(1, 10)]
-    print(Calc_freq)
+    Calc_freq = [round(first_digits.count(digits) / len(first_digits)*100, 2) for digits in range(1, 10)]
+    print(Calc_freq)    
     return Calc_freq
 
+def Print_csv(data, filename):
+    # write digit frequency data to CSV file
+    with open(filename, 'w') as file:
+        file.write('Digit,Frequency\n')
+        for digi, freq in zip(range(1, 10), data):
+            file.write(str(digi) + ' = ' + str(freq) + '\n')
+    print(f'Digit frequency data written to {filename}.')
 
 def file_percent():
     with open('results.csv','w') as results:
@@ -34,13 +41,21 @@ printfile()
 
 validate = input("press 2 to validate:")
 correctInp = "2"
-
+ 
 while validate != correctInp:
     validate = input("press 2 to validate")
 
 validateNumber()
 
-result = input("type y to see results")
+csv_print= input("type 3 to see results")
+Correctinp_csv = "3"
+
+while csv_print != Correctinp_csv:
+    csv_print= input("incorrect input, type 3 to see results:") 
+
+filename = "results.csv"
+results = validateNumber()
+Print_csv(results, filename)
 
 
 '''
