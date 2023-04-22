@@ -1,5 +1,6 @@
 import os
-import matplotlib as plt
+import matplotlib.pyplot as plt
+
 #printing file data onto the terminal
 def printfile():
     with open('sales.csv') as file:
@@ -18,15 +19,15 @@ def validateNumber():
     return Calc_freq
 
 #create the graph
-def createGraph():
-    digits = range(1, 10)
-    freq = validateNumber()
-    plt.bar(digits, freq)
-    plt.xlabel('First Digit')
-    plt.ylabel('Frequency (%)')
-    plt.title('Benford\'s Law Distribution')
-    plt.show()
 
+def createGraph():
+    freq = validateNumber()
+    digits = range(1, 10)
+    plt.bar(digits, freq)
+    plt.title("First Digit Frequency in Sales Data")
+    plt.xlabel("Digit")
+    plt.ylabel("Frequency (%)")
+    plt.show()
 
 def FraudCheck():
     First_digit_freq = validateNumber()
@@ -60,10 +61,11 @@ correctInp = "2"
 while validate != correctInp:
     validate = input("press 2 to validate")
 
+
 validateNumber()
-
-
 FraudCheck()
+
+
 
 csv_print= input("type 3 to see results")
 Correctinp_csv = "3"
@@ -75,5 +77,12 @@ filename = "results.csv"
 results = validateNumber()
 Print_csv(results, filename)
 
+graph_input = input("Press 4 to graph the data:")
+correct_inpgraph = "4"
 
+while graph_input != correct_inpgraph:
+  graph_input = input("Press 4 to graph the data:")
+
+if graph_input  == "4":
+    createGraph()
 
