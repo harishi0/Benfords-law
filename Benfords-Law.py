@@ -64,26 +64,4 @@ results = validateNumber()
 Print_csv(results, filename)
 
 
-'''
-# Extract the first digit of each sales value
-first_digits = [first_digit(int(line.split(",")[1])) for line in data[1:]]
-# Calculate the expected frequencies according to Benford's law
-expected_freqs = [math.log10(1 + 1/d) for d in range(1, 10)]
-# Calculate the percentages
-actual_freqs = [first_digits.count(d) / len(first_digits)*100 for d in range(1, 10)]
-print(actual_freqs)
-# Plot the expected and actual frequencies
 
-
-
-type = input("type y to see digit frequency")
-
-def filePercent():
-    with open('results.csv','w') as results:
-        results.write(str(actual_freqs))
-
-while type != "y":
-    type = input("type y to see digit frequency")
-
-filePercent()
-'''
