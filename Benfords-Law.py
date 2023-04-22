@@ -14,9 +14,16 @@ def validateNumber():
     with open('sales.csv') as numbers:
         file = numbers.readlines()
     first_digits = [first_digit(int(line.split(",")[1])) for line in file[1:]]
-    Calc_freq = [round(first_digits.count(digits) / len(first_digits)*100, 2) for digits in range(1, 10)]
-    print(Calc_freq)    
+    Calc_freq = [round(first_digits.count(digits) / len(first_digits)*100, 2,) for digits in range(1, 10)]
     return Calc_freq
+
+def FraudCheck():
+    First_digit_freq = validateNumber()
+    if 29 <= First_digit_freq[0] <= 32:
+        print("fraud did not occur, because first digit is between 29 and 32%")
+    else:
+        print("SALES FRAUD OCCURES YOU ARE A CRIMINAL")
+    print(validateNumber())
 
 def Print_csv(data, filename):
     # write digit frequency data to CSV file
@@ -26,9 +33,7 @@ def Print_csv(data, filename):
             file.write(str(digi) + ' = ' + str(freq) + '\n')
     print(f'Digit frequency data written to {filename}.')
 
-def file_percent():
-    with open('results.csv','w') as results:
-        results.write(str())
+
 
 salesData = input("type in the file to open:")
 correctFile = "sales.csv"
@@ -46,6 +51,7 @@ while validate != correctInp:
     validate = input("press 2 to validate")
 
 validateNumber()
+FraudCheck()
 
 csv_print= input("type 3 to see results")
 Correctinp_csv = "3"
