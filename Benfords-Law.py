@@ -16,6 +16,12 @@ def validateNumber():
     first_digits = [first_digit(int(line.split(",")[1])) for line in file[1:]]
     Calc_freq = [round(first_digits.count(d) / len(first_digits)*100, 2) for d in range(1, 10)]
     print(Calc_freq)
+    return Calc_freq
+
+
+def file_percent():
+    with open('results.csv','w') as results:
+        results.write(str())
 
 salesData = input("type in the file to open:")
 correctFile = "sales.csv"
@@ -33,6 +39,10 @@ while validate != correctInp:
     validate = input("press 2 to validate")
 
 validateNumber()
+
+result = input("type y to see results")
+
+
 '''
 # Extract the first digit of each sales value
 first_digits = [first_digit(int(line.split(",")[1])) for line in data[1:]]
