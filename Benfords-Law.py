@@ -1,6 +1,6 @@
 import os
 import matplotlib.pyplot as plt
-
+        
 #printing file data onto the terminal
 def printfile():
     with open('sales.csv') as file:
@@ -27,6 +27,7 @@ def createGraph():
     plt.title("First Digit Frequency in Sales Data")
     plt.xlabel("Digit")
     plt.ylabel("Frequency (%)")
+    plt.xticks(digits)
     plt.show()
 
 def FraudCheck():
@@ -63,7 +64,7 @@ while validate != correctInp:
 
 
 validateNumber()
-FraudCheck()
+FraudCheck() 
 
 
 
